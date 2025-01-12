@@ -1,12 +1,16 @@
 $fa = $preview ? 3 : 0.4;
 $fs = $preview ? 6 : 0.4;
 
-difference() {
-  shelf();
-  slip_clearances();
-  mat();
+shelf();
+
+module shelf() {
+  difference() {
+    og_shelf();
+    slip_clearances();
+    mat();
+  }
+  covers();
 }
-covers();
 
 module slip_clearances() {
   translate([43,0,0])
@@ -31,40 +35,38 @@ module cover() {
   difference() {
     translate([0,4.4,-16.2])
     linear_extrude(0.4)
-    circle(29.6);
+    circle(30);
     translate([0,4.4,-16.2])
     badge_large();
   }
 }
 
-module shelf() {
+module og_shelf() {
     import("/Users/joshlewis/code/chargian/OpenSourceEvMagsafeShelf.stl");
 }
 
 module badge_large() {
     linear_extrude(.6)
-    import("/Users/joshlewis/code/chargian/rivian-badge.svg", center = true, dpi = 50);
+    import("/Users/joshlewis/code/chargian/rivian-badge.svg", center = true, dpi = 44.45);
 }
 
 module badge_small() {
-    linear_extrude(.2)
-    import("/Users/joshlewis/code/chargian/rivian-badge.svg", center = true, dpi = 254);
+    linear_extrude(.4)
+    import("/Users/joshlewis/code/chargian/rivian-badge.svg", center = true, dpi = 222.25);
 }
 
-badge_spacing=4;
-badges_x=40;
-badges_y=16;
-mat_width=badge_spacing*(badges_x+2);
-mat_height=badge_spacing*(badges_y+2);
-mat_chamfer=badge_spacing*.75;
+badge_spacing=5.4375;
+badges_x=32;
+badges_y=14;
+mat_width=badge_spacing*(badges_x-1);
+mat_height=badge_spacing*(badges_y-1);
+mat_chamfer=badge_spacing*0.34375;
 
 module mat() {
-  //difference() {
-
-      translate([0,-mat_height/2-8,-16.2])
+      translate([0,-mat_height/2-8.2,-16.201])
       difference() {
         translate([-mat_width/2, -mat_height/2,0])
-        linear_extrude(.2)
+        linear_extrude(.4)
         polygon([
             [mat_chamfer,0],
             [mat_width-mat_chamfer,0],
@@ -77,32 +79,24 @@ module mat() {
         ]);
         badge_matrix();
       };
-      translate([-43,4.4,-16.2])
-      linear_extrude(0.2)
-      circle(30+(badge_spacing*.375));
-    
-      translate([43,4.4,-16.2])
-      linear_extrude(0.2)
-      circle(30+(badge_spacing*.375));
-    //}
 }
 
 module badge_matrix() {
-  translate([(-mat_width/2)+badge_spacing,(-mat_height/2)+badge_spacing,0])
+  translate([(-mat_width/2)+(0*badge_spacing),(-mat_height/2)+(0*badge_spacing),0])
   badge_grid(badges_x,badges_y);
-  translate([(-mat_width/2)+(1.5*badge_spacing),(-mat_height/2)+(1.5*badge_spacing),0])
+  translate([(-mat_width/2)+(.5*badge_spacing),(-mat_height/2)+(.5*badge_spacing),0])
   badge_grid(badges_x-1,badges_y-1);
 }
 
 module badge_grid(nx,ny) {
-  for (dy=[0:badge_spacing:badge_spacing*ny]) {
+  for (dy=[0:badge_spacing:badge_spacing*(ny-1)]) {
     translate([0,dy,0])
     badge_row(nx);
   }
 }
 
 module badge_row(n) {
-  for (dx=[0:badge_spacing:badge_spacing*n]) {
+  for (dx=[0:badge_spacing:badge_spacing*(n-1)]) {
     translate([dx,0,0])
     badge_small();
   }
