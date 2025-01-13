@@ -26,7 +26,7 @@ module liner() {
 }
 
 module og_liner() {
-    import("/Users/joshlewis/code/chargian/OpenSourceEvMagsafeLiner.stl");
+    import("OpenSourceEvMagsafeLiner.stl");
 }
 
 module badges() {
@@ -39,7 +39,7 @@ module badges() {
 }
 module badge_small() {
     linear_extrude(badge_thickness)
-        import("/Users/joshlewis/code/chargian/rivian-badge.svg", center = true, dpi = 222.25);
+        import("rivian-badge.svg", center = true, dpi = 222.25);
 }
 
 module badge_matrix() {

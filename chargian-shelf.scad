@@ -53,17 +53,17 @@ module cover() {
 }
 
 module og_shelf() {
-    import("/Users/joshlewis/code/chargian/OpenSourceEvMagsafeShelf.stl");
+    import("OpenSourceEvMagsafeShelf.stl");
 }
 
 module badge_large() {
     linear_extrude(.6)
-        import("/Users/joshlewis/code/chargian/rivian-badge.svg", center = true, dpi = 41.275);
+        import("rivian-badge.svg", center = true, dpi = 41.275);
 }
 
 module badge_small() {
     linear_extrude(.4)
-        import("/Users/joshlewis/code/chargian/rivian-badge.svg", center = true, dpi = 222.25);
+        import("rivian-badge.svg", center = true, dpi = 222.25);
 }
 
 badge_spacing=5.4375;
